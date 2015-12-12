@@ -1,0 +1,11 @@
+create or replace trigger {NAME} 
+BEFORE {WHEN} ON {TABLENAME} 
+FOR EACH ROW DECLARE 
+l_passed boolean; 
+BEGIN 
+l_passed := :new.{COLNAME} {OPERATOR} :new.{SECONDCOLUMN}; 
+if not l_passed then 
+	RAISE_APPLICATION_ERROR(-20100,'{ERRORMESSAGE}'); 
+	return; 
+end if; 
+END; 

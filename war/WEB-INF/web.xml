@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+	
+	<servlet>
+		<servlet-name>InitDatabaseServlet</servlet-name>
+		<servlet-class>servlet.InitDatabaseServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitDatabaseServlet</servlet-name>
+		<url-pattern>/InitDatabaseServlet.do</url-pattern>
+	</servlet-mapping>
+		<servlet>
+		<servlet-name>TestConnection</servlet-name>
+		<servlet-class>servlet.TestConnection
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TestConnection</servlet-name>
+		<url-pattern>/TestConnection.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GenerateBusinessRuleServlet</servlet-name>
+		<servlet-class>servlet.GenerateBusinessRuleServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GenerateBusinessRuleServlet</servlet-name>
+		<url-pattern>/GenerateBusinessRuleServlet.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>InsertTriggerInTargetDatabase</servlet-name>
+		<servlet-class>servlet.InsertTriggerInTargetDatabase
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InsertTriggerInTargetDatabase</servlet-name>
+		<url-pattern>/InsertTriggerInTargetDatabase.do</url-pattern>
+	</servlet-mapping>
+</web-app>

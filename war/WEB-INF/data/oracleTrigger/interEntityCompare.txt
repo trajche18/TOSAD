@@ -1,0 +1,44 @@
+create or replace trigger {NAME}
+BEFORE {WHEN} ON {TABLENAME} 
+FOR EACH ROW
+
+DECLARE
+l_passed boolean;
+CURSOR lc_curs is
+	SELECT tab.{SECONDCOLUMN}
+	FROM {SECONDTABLE} tab
+	WHERE tab.{SECONDPK} = :new.{PK};
+	l_var {SECONDTABLE}.{SECONDCOLUMN}%type;
+BEGIN
+	OPEN lc_curs;
+		FETCH lc_curs INTO l_var;
+	CLOSE lc_curs;
+l_passed := :new.{COLUMN} {OPERATOR} l_var;
+if not l_passed then
+	RAISE_APPLICATION_ERROR(-20100,'{ERRORMESSAGE}');
+	return;
+end if;
+END;
+
+/
+create or replace trigger {NAME}R
+BEFORE {WHEN} ON {SECONDTABLE} 
+FOR EACH ROW
+
+DECLARE
+l_passed boolean;
+CURSOR lc_curs is
+	SELECT min(tab.{COLUMN})
+	FROM {TABLENAME} tab
+	WHERE tab.{PK} = :new.{SECONDPK};
+	l_var {TABLENAME}.{COLUMN}%type;
+BEGIN
+	OPEN lc_curs;
+		FETCH lc_curs INTO l_var;
+	CLOSE lc_curs;
+l_passed := :new.{SECONDCOLUMN} {REVOPERATOR} l_var;
+if not l_passed then
+	RAISE_APPLICATION_ERROR(-20100,'{ERRORMESSAGE}');
+	return;
+end if;
+END;

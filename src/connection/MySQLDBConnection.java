@@ -1,0 +1,63 @@
+package connection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import database.Column;
+import database.OracleScheme;
+import database.Scheme;
+import database.Table;
+
+import rule.AttributeCompareRule;
+import rule.AttributeListRule;
+import rule.AttributeOtherRule;
+import rule.AttributeRangeRule;
+import rule.BusinessRule;
+import rule.TupleCompareRule;
+import trigger.TriggerEvent;
+import trigger.TriggerTiming;
+import trigger.TriggerTypes;
+
+public class MySQLDBConnection implements DBConnection {
+
+	private Connection targetconnection;
+	private Connection toolconnection;
+	Statement st;
+	ResultSet rs;
+
+	public MySQLDBConnection() {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			System.out.println("MySQL JDBC Driver Registered!");
+			
+		} catch (ClassNotFoundException e) {
+			System.out.println("Where is your Oracle JDBC Driver?");
+			e.printStackTrace();
+			return;
+		}
+
+	}
+
+
+	public Connection getTargetDatabaseConnection(String hostname,
+			String port, String servicename, String username, String password){
+		Connection connection = null;
+		try {
+			
+			connection = DriverManager.getConnection(
+					"jdbc:mysql://" + hostname + ":" + port + "/"
+							+ servicename, username, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return connection;
+	}
+
+	
+}
